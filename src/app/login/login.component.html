@@ -1,0 +1,24 @@
+<section>
+    <div class="title">
+        <h1>Users List</h1>
+    </div>
+    <div>
+    </div>
+    <div class="task-list">
+        <mat-form-field class="form-field">
+            <mat-label>User name</mat-label>
+            <input matInput 
+            [(ngModel)]="searchText"
+            (input)="applyFilter()" 
+            placeholder="Поиск">
+        </mat-form-field>
+        <ol class="user-list">
+            @for (user of displayedUsers; track user; let i = $index) {
+                <li class="task-item">
+                    <span class="task-number">{{ i + 1 }}.</span> 
+                    <span class="task-title" (click)="selectUser(user.id)">{{ user.name }}</span>
+                </li>
+            }
+        </ol>
+    </div>
+</section>

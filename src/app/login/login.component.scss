@@ -1,0 +1,48 @@
+section {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    max-width: 700px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    background: #a9a9a92f;
+    border-radius: 12px;
+
+    .task-number {
+        margin-right: 8px;
+    }
+}
+
+.user-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.form-field {
+    margin-left: 5px;
+    width: calc(100% - 53px);
+}
+
+:host ::ng-deep .mat-mdc-fab {
+    height: 40px;
+    width: 40px;
+}
+
+ol {
+    padding-inline-start: 0
+}
