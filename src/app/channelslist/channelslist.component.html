@@ -1,0 +1,48 @@
+<section>
+    @if (isLoaded && currentUser) {
+
+        <div class="usercard">
+            <mat-card class="example-card" appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title-group>
+                    <mat-card-title>{{currentUser.name}}</mat-card-title>
+                    </mat-card-title-group>
+                </mat-card-header>
+                <mat-card-content>
+                    <img mat-card-sm-image src={{currentUser.avatar}} >
+                    <mat-card-subtitle class="user-items">username: {{currentUser.username}}</mat-card-subtitle>
+                    <mat-card-subtitle class="user-items">email: {{currentUser.email}}</mat-card-subtitle>
+                    <mat-card-subtitle class="user-items">phone numer: {{currentUser.phone}}</mat-card-subtitle>
+                    <mat-card-subtitle class="user-items">website: <a href={{currentUser.website}}>{{currentUser.website}}</a></mat-card-subtitle>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="channelslist">
+            <div class="channelslist-title">
+                <mat-card-title class="title">Channels List</mat-card-title>
+                <button mat-mini-fab><mat-icon class="icon">add</mat-icon></button>
+            </div>
+
+            <mat-accordion>
+                @for (channel of userChannels; track channel) {
+                    <mat-expansion-panel hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title> 
+                            @if (channel.creator === currentUser.id) {<mat-icon class="icon">event_seat</mat-icon>}
+                            <span>{{channel.name}}</span>
+                        </mat-panel-title>
+                        <mat-panel-description class="channel-description">
+                            <div>{{channel.members.length}}</div>
+                            <mat-icon class="icon">account_circle</mat-icon>
+                            @if (channel.isPrivate) {<mat-icon class="icon">lock_close</mat-icon>}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>This is the primary content of the panel.</p>
+                </mat-expansion-panel>
+                }
+            </mat-accordion>
+        </div>
+
+    }
+</section>

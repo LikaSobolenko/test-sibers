@@ -1,0 +1,38 @@
+section {
+    display: grid;
+    grid-template-columns: 25% auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 1em;
+    max-width: 1200px;
+}
+
+.icon {
+    margin: 5px;
+}
+
+
+.user-items {
+    word-break: break-all;
+}
+
+.channelslist {
+    .channelslist-title {
+        display: flex;
+        margin: 10px 0;
+
+        .title{
+            flex: 1;
+        }
+    }
+
+    .channel-description {
+        display: flex;
+        justify-content: end;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    section {
+        grid-template-columns: 1fr;
+    }
+}

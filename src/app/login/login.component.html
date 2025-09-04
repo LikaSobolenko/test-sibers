@@ -14,9 +14,9 @@
         </mat-form-field>
         <ol class="user-list">
             @for (user of displayedUsers; track user; let i = $index) {
-                <li class="task-item">
+                <li class="task-item" (click)="selectUser(user.id)">
                     <span class="task-number">{{ i + 1 }}.</span> 
-                    <span class="task-title" (click)="selectUser(user.id)">{{ user.name }}</span>
+                    <span class="task-title">{{ user.name }}</span>
                 </li>
             }
         </ol>

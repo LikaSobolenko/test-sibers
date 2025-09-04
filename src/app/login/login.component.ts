@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   public searchText: string = '';
 
   constructor(private userService: UserService, 
-    public router: Router,) {}
+    public router: Router) {}
 
   ngOnInit(): void {
     this.loadData(this.userService.getAllUsers());
