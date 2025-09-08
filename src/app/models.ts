@@ -1,3 +1,6 @@
+// Models for types
+
+//User Model
 export interface User {
     id: number,
     name: string,
@@ -19,6 +22,7 @@ export interface Channel {
     createdAt: Date;
 }
 
+//Message Model
 export interface Message {
     id: number;
     sender: string;
@@ -26,6 +30,7 @@ export interface Message {
     timestamp: Date;
 }
 
+// Channels data
 export const DEMO_CHANNELS: Channel[] = [
     {
         id: 'general',

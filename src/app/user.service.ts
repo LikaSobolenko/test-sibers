@@ -11,6 +11,7 @@ export class UserService {
 
   constructor(private apiService: ApiService) {}
 
+  //Get all users from api
   getAllUsers(): Observable<User[]> {
     if (this.users.length > 0) {
       return of(this.users);
@@ -27,22 +28,10 @@ export class UserService {
     );
   }
 
+  //Get user by ID
   getUserById(id: number): Observable<User | undefined> {
     return this.getAllUsers().pipe(
       map(users => users.find(user => user.id === id))
-    );
-  }
-
-  getUsersByIds(ids: number[]): User[] {
-    return this.users.filter(user => ids.includes(user.id));
-  }
-
-  searchUsers(searchTerm: string): User[] {
-    if (!searchTerm.trim()) return [];
-    
-    return this.users.filter(user => 
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 }

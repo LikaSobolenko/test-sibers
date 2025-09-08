@@ -44,6 +44,7 @@ export class ChannelslistComponent implements OnInit, OnDestroy {
     public router: Router
   ) {}
 
+  // Initialize component and load user data
   ngOnInit() {
     this.routeSub = this.route.paramMap.pipe(
       switchMap(params => {
@@ -73,11 +74,13 @@ export class ChannelslistComponent implements OnInit, OnDestroy {
     });
   }
   
+  // Load user channels and all available channels
   loadChannels(): void {
     this.userChannels = this.channelService.getUserChannels(this.currentUser!.id);
     this.allChannels = this.channelService.getAllChannels();
   }
 
+  // Add current user to a channel
   addNewChannel (channelId:string) {
       if (this.currentUser?.id === undefined || this.currentUser?.id === null) {
         return;
@@ -87,6 +90,7 @@ export class ChannelslistComponent implements OnInit, OnDestroy {
       this.loadChannels()
   }
 
+  // Open dialog to create new channel
   createNewChannel () {
       const dialogRef = this.dialog.open(NewchannelComponent, {
       data: this.currentUser?.id,

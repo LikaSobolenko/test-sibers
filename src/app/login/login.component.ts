@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.loadData(this.userService.getAllUsers());
   }
 
+  // Load users data from service
   private loadData(observable: Observable<User[]>): void {
     
     observable.subscribe({
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // Filter users by name
   public applyFilter() {
     const term = this.searchText.toLowerCase();
     this.displayedUsers = this.users.filter(user => 
@@ -61,6 +63,7 @@ export class LoginComponent implements OnInit {
     this.displayedUsers = this.users
   }
 
+  // Navigate to selected user
   selectUser(id: number): void {
     this.router.navigate(['/channels', id]);
   }

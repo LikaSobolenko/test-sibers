@@ -61,6 +61,7 @@ export class NewchannelComponent {
     this.loadData(this.userService.getAllUsers());
   }
 
+  // Load users data
   private loadData(observable: Observable<User[]>): void {
       observable.subscribe({
         next: (data) => {
@@ -72,6 +73,7 @@ export class NewchannelComponent {
       });
     }
 
+  // Toggle user selection for channel membership
   toggleUserSelection(userId: number): void {
     const index = this.members.indexOf(userId);
     
@@ -86,6 +88,7 @@ export class NewchannelComponent {
     return this.members.includes(userId);
   }
 
+  // Create new channel with form data
   createChannel() {
     if (this.channelForm.value.title) {
       if (this.channelForm.valid) {

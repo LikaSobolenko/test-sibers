@@ -76,6 +76,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  // Filter users for current channel
   public applyFilter() {
     const term = this.searchText.toLowerCase();
     this.displayedUsers = this.users.filter(user => 
@@ -83,6 +84,7 @@ export class ChatComponent implements OnInit {
     );
   }
 
+  // Remove user from current channel
   public deleteUser(id: number) {
     this.channelService.removeUserFromChannel(id, this.channelId);
     this.displayedUsers = this.displayedUsers.filter(user => user.id !== id);
@@ -92,6 +94,7 @@ export class ChatComponent implements OnInit {
     );
   }
 
+  // Send new message to current channel
   sendMessage(): void {
   if (!this.newMessage.trim() || !this.currentUser || !this.currentchannel) return;
 

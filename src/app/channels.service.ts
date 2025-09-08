@@ -11,6 +11,7 @@ export class ChannelService {
     this.initializeChannels();
   }
 
+  //Initialize channels from localStorage or demo data
   private initializeChannels(): void {
     const savedChannels = localStorage.getItem('chat_channels');
     
@@ -29,29 +30,35 @@ export class ChannelService {
     }
   }
 
+  // Load demo channels from Modals
   private loadDemoChannels(): void {
     this.channels = [...DEMO_CHANNELS];
     this.saveToLocalStorage();
   }
 
+  // Save current channels state to localStorage
   private saveToLocalStorage(): void {
     localStorage.setItem('chat_channels', JSON.stringify(this.channels));
   }
 
+  // Get all channels
   getAllChannels(): Channel[] {
     return this.channels;
   }
 
+  // Get channels where user is a member
   getUserChannels(userId: number): Channel[] {
     return this.channels.filter(channel => 
       channel.members.includes(userId)
     );
   }
 
+  // Find channel by its ID
   getChannelById(channelId: string): Channel | undefined {
     return this.channels.find(channel => channel.id === channelId);
   }
 
+  // Create new channel
   createChannel(name: string, creatorId: number, members: number[] = []): Channel {
     const newChannel: Channel = {
       id: this.generateChannelId(),
@@ -67,6 +74,7 @@ export class ChannelService {
     return newChannel;
   }
 
+  // Update existing channel with new data
   updateChannel(updatedChannel: Channel): void {
     const index = this.channels.findIndex(ch => ch.id === updatedChannel.id);
     if (index !== -1) {
@@ -75,6 +83,7 @@ export class ChannelService {
     }
   }
 
+  // Add user to channel membership
   addUserToChannel(userId: number, channelId: string): boolean {
     const channel = this.getChannelById(channelId);
     if (channel && !channel.members.includes(userId)) {
@@ -85,6 +94,7 @@ export class ChannelService {
     return false;
   }
 
+  // Remove user from channel membership
   removeUserFromChannel(userId: number, channelId: string): boolean {
     const channel = this.getChannelById(channelId);
     
@@ -102,5 +112,4 @@ export class ChannelService {
   private generateChannelId(): string {
     return 'channel_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
   }
-
 }
