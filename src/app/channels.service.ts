@@ -5,7 +5,38 @@ import { Channel, DEMO_CHANNELS } from '../app/models';
   providedIn: 'root'
 })
 export class ChannelService {
-  private channels: Channel[] = DEMO_CHANNELS;
+  private channels: Channel[] = [];
+
+  constructor() {
+    this.initializeChannels();
+  }
+
+  private initializeChannels(): void {
+    const savedChannels = localStorage.getItem('chat_channels');
+    
+    if (savedChannels) {
+      try {
+        this.channels = JSON.parse(savedChannels);
+        this.channels.forEach(channel => {
+          channel.createdAt = new Date(channel.createdAt);
+        });
+      } catch (error) {
+        console.error('Error parsing saved channels:', error);
+        this.loadDemoChannels();
+      }
+    } else {
+      this.loadDemoChannels();
+    }
+  }
+
+  private loadDemoChannels(): void {
+    this.channels = [...DEMO_CHANNELS];
+    this.saveToLocalStorage();
+  }
+
+  private saveToLocalStorage(): void {
+    localStorage.setItem('chat_channels', JSON.stringify(this.channels));
+  }
 
   getAllChannels(): Channel[] {
     return this.channels;
@@ -21,17 +52,17 @@ export class ChannelService {
     return this.channels.find(channel => channel.id === channelId);
   }
 
-  createChannel(name: string, creatorId: number): Channel {
+  createChannel(name: string, creatorId: number, members: number[] = []): Channel {
     const newChannel: Channel = {
       id: this.generateChannelId(),
       name,
       creator: creatorId,
-      members: [creatorId],
-      isPrivate: false,
+      members: [creatorId, ...members],
       createdAt: new Date()
     };
 
     this.channels.push(newChannel);
+    this.saveToLocalStorage();
     return newChannel;
   }
 
@@ -39,12 +70,28 @@ export class ChannelService {
     const channel = this.getChannelById(channelId);
     if (channel && !channel.members.includes(userId)) {
       channel.members.push(userId);
+      this.saveToLocalStorage();
       return true;
     }
     return false;
   }
 
-  private generateChannelId(): string {
-    return 'channel_' + Date.now().toString(36);
+  removeUserFromChannel(userId: number, channelId: string): boolean {
+    const channel = this.getChannelById(channelId);
+    
+    if (!channel) {
+      console.error('Channel not found');
+      return false;
+    }
+
+    channel.members = channel.members.filter(id => id !== userId);
+    this.saveToLocalStorage();
+    
+    return true;
   }
+
+  private generateChannelId(): string {
+    return 'channel_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+  }
+
 }

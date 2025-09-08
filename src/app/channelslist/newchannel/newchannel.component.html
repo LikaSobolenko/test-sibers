@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Create a new channel</h2>
+<mat-dialog-content>
+    <form class="form">
+        <mat-form-field class="full-width">
+            <mat-label>Channel name</mat-label>
+            <input matInput [formControl]="channelForm.controls.title" required minlength="3">
+            @if (channelForm.controls.title.hasError('required')) {
+                <mat-error class="error">Channel name is required</mat-error>
+            }
+            @if (channelForm.controls.title.hasError('minlength') && !channelForm.controls.title.hasError('required')) {
+                <mat-error>Minimum channel name length 3</mat-error>
+            }
+        </mat-form-field>
+        <mat-label>Add members</mat-label>
+            <section class="example-section">
+                @for (user of users; track user; let i = $index) {
+                    <div><mat-checkbox class="example-margin"
+                        [checked]="isUserSelected(user.id)"
+                        (change)="toggleUserSelection(user.id)">
+                        {{user.name}}</mat-checkbox></div>
+                }
+            </section>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="buttons">
+    <button mat-button="tonal" mat-dialog-close>Cancel</button>
+    <button mat-flat-button [disabled]="!channelForm.valid" (click)="createChannel()">Create</button>
+</mat-dialog-actions>

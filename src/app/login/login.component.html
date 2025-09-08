@@ -10,13 +10,13 @@
             <input matInput 
             [(ngModel)]="searchText"
             (input)="applyFilter()" 
-            placeholder="Поиск">
+            placeholder="Search">
         </mat-form-field>
         <ol class="user-list">
             @for (user of displayedUsers; track user; let i = $index) {
-                <li class="task-item" (click)="selectUser(user.id)">
-                    <span class="task-number">{{ i + 1 }}.</span> 
-                    <span class="task-title">{{ user.name }}</span>
+                <li class="user-item" (click)="selectUser(user.id)">
+                    <span class="user-number">{{ i + 1 }}.</span> 
+                    <span class="user-title">{{ user.name }}</span>
                 </li>
             }
         </ol>

@@ -11,7 +11,7 @@ section {
     padding-top: 16px;
 }
 
-.task-item {
+.user-item {
     display: flex;
     align-items: center;
     padding: 5px 10px;
@@ -19,7 +19,7 @@ section {
     background: #a9a9a92f;
     border-radius: 12px;
 
-    .task-number {
+    .user-number {
         margin-right: 8px;
     }
 }

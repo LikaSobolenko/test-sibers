@@ -10,10 +10,32 @@ section {
     margin: 5px;
 }
 
+.usercard {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 300px 300px;
 
-.user-items {
-    word-break: break-all;
+        
+    .user-items {
+        word-break: break-all;
+    }
+
+    .usercard-allchannels {
+        overflow: auto;
+    }
+
+    .allchannels-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon {
+        cursor: pointer;
+    }
 }
+
+
 
 .channelslist {
     .channelslist-title {
@@ -34,5 +56,10 @@ section {
 @media screen and (max-width: 800px) {
     section {
         grid-template-columns: 1fr;
+    }
+
+    .usercard {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 300px;
     }
 }

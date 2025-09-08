@@ -28,7 +28,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   users: User[] = [];
   public displayedUsers: User[] = [];
-  loading = true;
   public searchText: string = '';
 
   constructor(private userService: UserService, 
@@ -39,16 +38,13 @@ export class LoginComponent implements OnInit {
   }
 
   private loadData(observable: Observable<User[]>): void {
-    this.loading = true;
     
     observable.subscribe({
       next: (data) => {
         this.users = data;
         this.displayedUsers = this.users;
-        this.loading = false;
       },
       error: (err) => {
-        this.loading = false;
         console.error(err);
       }
     });

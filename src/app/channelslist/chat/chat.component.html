@@ -1,0 +1,52 @@
+<section>
+        <mat-drawer-container class="container" autosize>
+            <mat-drawer #drawer class="sidenav" mode="side">
+                <mat-form-field class="form-field">
+                    <mat-label>User name</mat-label>
+                    <input matInput 
+                    [(ngModel)]="searchText"
+                    (input)="applyFilter()" 
+                    placeholder="Search">
+                </mat-form-field>
+                <div class="user-list">
+                    @for (user of displayedUsers; track user;) {
+                        <p class="user-item">
+                            @if (currentchannel?.creator === userId && currentchannel?.creator != user.id) {
+                                <mat-icon class="icon" (click)="deleteUser(user.id)">delete_outline</mat-icon>}
+                            <span class="user-title">{{ user.name }}</span>
+                        </p>
+                    }
+                </div>
+            </mat-drawer>
+            <div class="sidenav-content">
+                <div class="userslist" (click)="drawer.toggle()">
+                    <div>{{currentchannel?.members?.length}}</div>
+                    <mat-icon class="icon">account_circle</mat-icon>
+                </div>
+                <div class="chat-container">
+                    <div class="test-container">
+                        <div class="message-bubble bubble-outgoing">
+                        Отлично! А у тебя?
+                        </div>
+                        <div class="message-items">
+                            <div class="message-username">{{currentUser?.name}}</div>
+                            <img class="message-avatar" src={{currentUser?.avatar}}>
+                            <div class="message-date">{{ currentDate | date:'medium' }}</div>
+                        </div>
+                        <div class="message-text">
+                        </div>
+                    </div>
+
+                    <div class="message-container">
+                        <mat-form-field class="form-field message-field">
+                            <input matInput 
+                            [(ngModel)]="searchText"
+                            (input)="applyFilter()" 
+                            placeholder="Message">
+                        </mat-form-field>
+                        <mat-icon mat-mini-fab class="icon">send</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </mat-drawer-container>
+</section>
