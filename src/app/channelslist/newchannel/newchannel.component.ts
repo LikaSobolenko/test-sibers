@@ -73,36 +73,30 @@ export class NewchannelComponent {
     }
 
   toggleUserSelection(userId: number): void {
-  const index = this.members.indexOf(userId);
-  
-  if (index > -1) {
-    this.members.splice(index, 1);
-  } else {
-    this.members.push(userId);
+    const index = this.members.indexOf(userId);
+    
+    if (index > -1) {
+      this.members.splice(index, 1);
+    } else {
+      this.members.push(userId);
+    }
   }
-}
 
-isUserSelected(userId: number): boolean {
-  return this.members.includes(userId);
-}
+  isUserSelected(userId: number): boolean {
+    return this.members.includes(userId);
+  }
 
   createChannel() {
     if (this.channelForm.value.title) {
       if (this.channelForm.valid) {
         const formValue = this.channelForm.value;
-
-        console.log(
-          formValue.title!,
-          this.data,
-          this.members
-        )
-        
-        const newChannel = this.channelService.createChannel(
+          
+        this.channelService.createChannel(
           formValue.title!,
           this.data,
           this.members
         );
-        
+          
         this.dialogRef.close('success');
       }
     }

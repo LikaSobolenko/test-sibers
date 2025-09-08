@@ -41,7 +41,6 @@ export class ChatComponent implements OnInit {
   public searchText: string = '';
   isUserListVisible: boolean = false;
   showFiller = false;
-  messages: Message[] = [];
   newMessage: string = '';
 
   constructor(
@@ -56,7 +55,6 @@ export class ChatComponent implements OnInit {
     this.userService.getUserById(this.userId).subscribe({
       next: (user) => {
         this.currentUser = user || null;
-        this.loadMessages();
       },
       error: (error) => {
         console.error('Error loading user:', error);
@@ -78,18 +76,6 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  loadMessages() {
-    this.messages = [
-      {
-        id: '1',
-        content: 'Hello, friends! How was your day?',
-        sender: this.currentUser?.name || 'Unknown User',
-        timestamp: new Date(),
-        type: 'incoming'
-      }
-    ];
-  }
-
   public applyFilter() {
     const term = this.searchText.toLowerCase();
     this.displayedUsers = this.users.filter(user => 
@@ -107,19 +93,20 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(): void {
-    if (!this.newMessage.trim()) return;
+  if (!this.newMessage.trim() || !this.currentUser || !this.currentchannel) return;
 
-    const message: Message = {
-      id: Date.now().toString(),
-      content: this.newMessage.trim(),
-      sender: this.currentUser?.name || 'Unknown User',
-      timestamp: new Date(),
-      type: 'outgoing'
-    };
+  const message: Message = {
+    id: this.currentchannel.messages.length+1,
+    content: this.newMessage.trim(),
+    sender: this.currentUser.name,
+    timestamp: new Date(),
+  };
 
-    this.messages.push(message);
-    this.newMessage = '';
-  }
+  this.currentchannel.messages.push(message);
+  this.channelService.updateChannel(this.currentchannel);
+  this.newMessage = '';
+
+}
 
   onKeyPress(event: KeyboardEvent): void {
   if (event.key === 'Enter' && !event.shiftKey) {

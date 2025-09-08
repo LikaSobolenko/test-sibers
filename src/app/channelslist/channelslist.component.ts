@@ -79,7 +79,6 @@ export class ChannelslistComponent implements OnInit, OnDestroy {
   }
 
   addNewChannel (channelId:string) {
-    console.log('this.currentUser?.id', this.currentUser?.id)
       if (this.currentUser?.id === undefined || this.currentUser?.id === null) {
         return;
       }

@@ -27,7 +27,7 @@
 
     .chat-container {
         display: grid;
-        grid-template-rows: 1fr 50px;
+        grid-template-rows: 1fr 75px;
         width: 100%;
         border: solid 1px rgba(34, 60, 80, 0.13);
         border-radius: 10px;
@@ -58,20 +58,29 @@
 }
 
 .text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
 
+    overflow-y: scroll;
     .message {
         margin: 10px 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &.my-message {
+            align-items: flex-end;
+        }
     }
 
     .message-items {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
         min-width: max-content;
         max-width: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &.my-message {
+            align-items: flex-end;
+        }
     }
 
     .message-bubble {
@@ -82,8 +91,11 @@
         word-wrap: break-word;
         position: relative;
         margin: 5px;
-        background: #3b82f6;
-        color: white;
+        background: linear-gradient(135deg, #DAF740 0%, #FCDBBA 100%);;
         height: min-content;
+
+        &.my-message {
+            background: linear-gradient(135deg, #DAF740 0%, #C5FCBA 100%);
+        }
     }
 }

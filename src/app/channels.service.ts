@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Channel, DEMO_CHANNELS } from '../app/models';
+import { Channel, DEMO_CHANNELS, Message } from '../app/models';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,7 @@ export class ChannelService {
       id: this.generateChannelId(),
       name,
       creator: creatorId,
+      messages: [],
       members: [creatorId, ...members],
       createdAt: new Date()
     };
@@ -64,6 +65,14 @@ export class ChannelService {
     this.channels.push(newChannel);
     this.saveToLocalStorage();
     return newChannel;
+  }
+
+  updateChannel(updatedChannel: Channel): void {
+    const index = this.channels.findIndex(ch => ch.id === updatedChannel.id);
+    if (index !== -1) {
+      this.channels[index] = updatedChannel;
+      localStorage.setItem('chat_channels', JSON.stringify(this.channels));
+    }
   }
 
   addUserToChannel(userId: number, channelId: string): boolean {

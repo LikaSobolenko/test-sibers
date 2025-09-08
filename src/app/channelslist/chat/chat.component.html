@@ -25,11 +25,11 @@
                 </div>
                 <div class="chat-container">
                     <div class="text-container">
-                        @for (message of messages; track message.id) {
-                            <div class="message">
-                                <div class="message-items">
+                        @for (message of this.currentchannel?.messages; track message.id) {
+                            <div class="message"  [class.my-message]="message.sender === currentUser?.name">
+                                <div class="message-items" [class.my-message]="message.sender === currentUser?.name">
                                     <div class="message-username">{{ message.sender }}:</div>
-                                    <div class="message-bubble">
+                                    <div class="message-bubble"  [class.my-message]="message.sender === currentUser?.name">
                                         {{ message.content }}
                                     </div>
                                     <div class="message-date">{{ message.timestamp | date:'HH:mm' }}</div>
