@@ -2,26 +2,26 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
 
-## Development server
+A standalone Angular component for real-time messaging within channels.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+Choose your user
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+User card with all information
 
-## Build
+Add user to channel or create a new one
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Real-time messaging - Send and display messages in channels
 
-## Running unit tests
+User management - View and manage channel members
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Search functionality - Filter users by name
 
-## Running end-to-end tests
+## Dependencies
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+`Angular Material` UI components
 
-## Further help
+ChannelService for channel operations
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+UserService for user management
