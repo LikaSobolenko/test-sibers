@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ChannelService } from '../../channels.service';
 import { UserService } from '../../user.service';
-import { User, Channel } from '../../models';
+import { User, Channel, Message } from '../../models';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -22,11 +23,13 @@ import { DatePipe } from '@angular/common';
     MatInputModule,
     MatSidenavModule, 
     MatToolbarModule, 
-    MatListModule, DatePipe],
+    MatListModule, 
+    DatePipe,
+    MatFormFieldModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
   @Input() channelId: string = '';
   @Input() userId: number = 0;
 
@@ -38,6 +41,8 @@ export class ChatComponent {
   public searchText: string = '';
   isUserListVisible: boolean = false;
   showFiller = false;
+  messages: Message[] = [];
+  newMessage: string = '';
 
   constructor(
       private channelService: ChannelService,
@@ -51,6 +56,7 @@ export class ChatComponent {
     this.userService.getUserById(this.userId).subscribe({
       next: (user) => {
         this.currentUser = user || null;
+        this.loadMessages();
       },
       error: (error) => {
         console.error('Error loading user:', error);
@@ -72,6 +78,18 @@ export class ChatComponent {
     });
   }
 
+  loadMessages() {
+    this.messages = [
+      {
+        id: '1',
+        content: 'Hello, friends! How was your day?',
+        sender: this.currentUser?.name || 'Unknown User',
+        timestamp: new Date(),
+        type: 'incoming'
+      }
+    ];
+  }
+
   public applyFilter() {
     const term = this.searchText.toLowerCase();
     this.displayedUsers = this.users.filter(user => 
@@ -87,4 +105,26 @@ export class ChatComponent {
       memberId => memberId !== id
     );
   }
+
+  sendMessage(): void {
+    if (!this.newMessage.trim()) return;
+
+    const message: Message = {
+      id: Date.now().toString(),
+      content: this.newMessage.trim(),
+      sender: this.currentUser?.name || 'Unknown User',
+      timestamp: new Date(),
+      type: 'outgoing'
+    };
+
+    this.messages.push(message);
+    this.newMessage = '';
+  }
+
+  onKeyPress(event: KeyboardEvent): void {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    this.sendMessage();
+  }
+}
 }

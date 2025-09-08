@@ -9,7 +9,7 @@
                     </mat-card-title-group>
                 </mat-card-header>
                 <mat-card-content>
-                    <img mat-card-sm-image src={{currentUser.avatar}} >
+                    <img mat-card-sm-image src={{currentUser.avatar}} onerror="this.src = '../../assets/avatar.jpg'" />
                     <mat-card-subtitle class="user-items">username: {{currentUser.username}}</mat-card-subtitle>
                     <mat-card-subtitle class="user-items">email: {{currentUser.email}}</mat-card-subtitle>
                     <mat-card-subtitle class="user-items">phone numer: {{currentUser.phone}}</mat-card-subtitle>

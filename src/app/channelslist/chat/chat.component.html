@@ -24,27 +24,28 @@
                     <mat-icon class="icon">account_circle</mat-icon>
                 </div>
                 <div class="chat-container">
-                    <div class="test-container">
-                        <div class="message-bubble bubble-outgoing">
-                        Отлично! А у тебя?
-                        </div>
-                        <div class="message-items">
-                            <div class="message-username">{{currentUser?.name}}</div>
-                            <img class="message-avatar" src={{currentUser?.avatar}}>
-                            <div class="message-date">{{ currentDate | date:'medium' }}</div>
-                        </div>
-                        <div class="message-text">
-                        </div>
+                    <div class="text-container">
+                        @for (message of messages; track message.id) {
+                            <div class="message">
+                                <div class="message-items">
+                                    <div class="message-username">{{ message.sender }}:</div>
+                                    <div class="message-bubble">
+                                        {{ message.content }}
+                                    </div>
+                                    <div class="message-date">{{ message.timestamp | date:'HH:mm' }}</div>
+                                </div>
+                            </div>
+                        }
                     </div>
 
                     <div class="message-container">
                         <mat-form-field class="form-field message-field">
-                            <input matInput 
-                            [(ngModel)]="searchText"
-                            (input)="applyFilter()" 
+                            <input matInput [(ngModel)]="newMessage" (keydown.enter)="onKeyPress($any($event))"
                             placeholder="Message">
                         </mat-form-field>
-                        <mat-icon mat-mini-fab class="icon">send</mat-icon>
+                        <button mat-mini-fab  (click)="sendMessage()" [disabled]="!newMessage.trim()"> 
+                            <mat-icon class="icon">send</mat-icon>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -19,32 +19,13 @@ export interface Channel {
     createdAt: Date;
 }
 
-// Message Model
-export interface MessageSender {
-    id: number;
-    name: string;
-    username: string;
-    avatar: string;
-}
-
 export interface Message {
     id: string;
-    channelId: string;
-    sender: MessageSender;
+    sender: string;
     content: string;
     timestamp: Date;
-    type: 'text' | 'system' | 'image';
+    type: 'outgoing' | 'incoming';
 }
-
-// Chat User
-export interface ChatUser {
-    id: number;
-    name: string;
-    username: string;
-    avatar: string;
-    online: boolean;
-}
-
 
 export const DEMO_CHANNELS: Channel[] = [
     {
